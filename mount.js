@@ -1,4 +1,3 @@
-var url = require('url')
 var path = require('path')
 var window = require('global/window')
 var href = require('nanohref')
@@ -6,22 +5,6 @@ var xtend = require('xtend')
 var routington = require('routington')
 var { through } = require('mississippi')
 var multi = require('@ishiduca/snoopy-multi')
-
-// API
-// var mount = require('./mount')
-// var m = mount(notFoundApp)
-// var domainsApp = {
-//   init () {},
-//   update (model) {},
-//   routes: [
-//     [ '/', 'index', viewIndex ],
-//     [ '/app/clock', 'clockApp', viewClockApp ],
-//     ...
-//   ]
-// }
-// var app = m({
-//  '/': [ 'rootApp', ,,,, domainAPp ]
-// })
 
 function mount (notFound, _apps) {
   notFound || (notFound = require('./notfound'))
@@ -62,19 +45,15 @@ function mount (notFound, _apps) {
       if (effect === INIT_BIND_ROUTES) {
         var s = through.obj()
         href((node) => {
-          var c = url.parse(window.location.href)
-          var _next = url.parse(node.href)
-          var nextPath = path.resolve(c.pathname, _next.pathname)
-          var next = _next.search == null
-            ? url.parse(nextPath, true)
-            : url.parse(nextPath + _next.search, true)
+          var next = prs(node.href, window.location.href)
+          var nextPath = next.pathname
           reRender(next, router.match(nextPath))
           window.history.pushState(dummy, null, next.href)
           s.write(CHANGED_HISTORY_STATE)
         })
 
         window.onpopstate = e => {
-          var c = url.parse(window.location.href, true)
+          var c = prs(window.location.href)
           reRender(c, router.match(c.pathname))
           s.write(CHANGED_HISTORY_STATE)
         }
@@ -101,7 +80,7 @@ function mount (notFound, _apps) {
     }, { '*': [ shadow ] }
   )
 
-  var c = url.parse(window.location.href, true)
+  var c = prs(window.location.href)
   reRender(c, router.match(c.pathname))
 
   function init () {
@@ -181,3 +160,4 @@ function composeEffect (effect, e, domainRootPath) {
 }
 
 function lst (arry) { return arry[arry.length - 1] }
+function prs (input, base) { return new URL(input, base) }

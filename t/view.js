@@ -8,7 +8,7 @@ test('var app = mount(notfound, domainApps)', t => {
     var testUri = 'http://dum.my'
     setHref(testUri)
 
-    var expectedUri = url.parse(testUri, true)
+    var expectedUri = new URL(testUri)
     var notFound = (u, p, m, up) => {
       t.deepEqual(u, expectedUri, `1st args "url object" - ${testUri}`)
       t.is(p, null, '2nd args "params" - null')
@@ -29,7 +29,7 @@ test('var app = mount(notfound, domainApps)', t => {
     var testUri = 'http://dum.my/dashboard'
     setHref(testUri)
 
-    var expectedUri = url.parse(testUri, true)
+    var expectedUri = new URL(testUri)
     var notFound = () => t.fail()
     var dashboard = (u, p, m, up) => {
       t.deepEqual(u, expectedUri, `1st args "url object" - ${testUri}`)
@@ -51,7 +51,7 @@ test('var app = mount(notfound, domainApps)', t => {
     var testUri = 'http://dum.my/dashboard/Gon/child/Ponta'
     setHref(testUri)
 
-    var expectedUri = url.parse(testUri, true)
+    var expectedUri = new URL(testUri)
     var notFound = () => t.fail()
     var dashboard = (u, p, m, up) => {
       t.deepEqual(u, expectedUri, `1st args "url object" - ${testUri}`)
