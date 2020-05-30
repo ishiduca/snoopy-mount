@@ -1,0 +1,43 @@
+{
+  "name": "@ishiduca/snoopy-mount",
+  "version": "0.0.1",
+  "description": "",
+  "main": "mount.js",
+  "scripts": {
+    "start:demo": "budo example/index.js  --open",
+    "test": "npm run test:node",
+    "test:node": "NODE_PATH=. tape t/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ishiduca/snoopy-mount.git"
+  },
+  "browserify": {
+    "transform": [
+      "es2040"
+    ]
+  },
+  "keywords": [],
+  "author": "ishiduca@gmail.com",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/ishiduca/snoopy-mount/issues"
+  },
+  "homepage": "https://github.com/ishiduca/snoopy-mount#readme",
+  "devDependencies": {
+    "browserify": "^16.5.1",
+    "budo": "^11.6.3",
+    "tape": "^5.0.1",
+    "tape-run": "^7.0.0"
+  },
+  "dependencies": {
+    "@ishiduca/snoopy": "0.0.2",
+    "es2040": "^1.2.6",
+    "global": "^4.4.0",
+    "mississippi": "^4.0.0",
+    "nanohref": "^3.1.0",
+    "routington": "^1.0.3",
+    "xtend": "^4.0.2",
+    "yo-yo": "^1.4.1"
+  }
+}
